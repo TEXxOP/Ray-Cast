@@ -1,5 +1,6 @@
 import Nav from '@/components/Nav';
 import Hero from '@/components/Hero';
+import RaycastShowcase from '@/components/RaycastShowcase';
 import Extensions from '@/components/Extensions';
 import AISection from '@/components/AISection';
 import Testimonials from '@/components/Testimonials';
@@ -11,6 +12,7 @@ export default function Home() {
     <>
       <Nav />
       <Hero />
+      <RaycastShowcase />
       <Tagline />
       <Extensions />
       <AISection />
