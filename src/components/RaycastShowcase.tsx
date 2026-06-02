@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ClipboardContent, AIContent, EmojiContent, CalculatorContent, WindowContent } from './ShowcaseContents';
+import BorderGlow from './BorderGlow';
 
 // ── SVG Tab Icons ────────────────────────────────
 const ClipSVG  = () => <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="2" width="6" height="4" rx="1"/><rect x="3" y="6" width="18" height="16" rx="2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>;
@@ -273,18 +274,29 @@ export default function RaycastShowcase() {
                   <div style={{ position: 'absolute', bottom: -5, left: '50%', marginLeft: -5, width: 10, height: 10, background: 'rgba(28,28,30,0.95)', borderRight: '1px solid rgba(255,255,255,0.15)', borderBottom: '1px solid rgba(255,255,255,0.15)', transform: 'rotate(45deg)' }} />
                 </motion.div>
               )}
-              <button onClick={() => goTo(i)} title={label} style={{
-                width:46, height:46, borderRadius:13,
-                border:'1px solid',
-                borderColor: active===i ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.08)',
-                background: active===i ? 'rgba(255,255,255,0.13)' : 'rgba(255,255,255,0.03)',
-                color: active===i ? '#ffffff' : 'rgba(255,255,255,0.45)',
-                cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center',
-                transition:'all 0.2s ease', outline:'none',
-                boxShadow: active===i ? '0 4px 16px rgba(0,0,0,0.3)' : 'none',
-              }}>
-                <Icon />
-              </button>
+              <BorderGlow
+                edgeSensitivity={20}
+                glowColor={active === i ? '0 100 65' : '40 80 80'}
+                backgroundColor={active===i ? 'rgba(255,255,255,0.13)' : 'rgba(255,255,255,0.03)'}
+                borderRadius={13}
+                glowRadius={10}
+                glowIntensity={0.8}
+                coneSpread={20}
+                animated={false}
+                colors={active === i ? ['#ff4040', '#ff6b35', '#ff4040'] : ['#c084fc', '#f472b6', '#38bdf8']}
+              >
+                <button onClick={() => goTo(i)} title={label} style={{
+                  width:46, height:46, borderRadius:13,
+                  border:'none',
+                  background: 'transparent',
+                  color: active===i ? '#ffffff' : 'rgba(255,255,255,0.45)',
+                  cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center',
+                  transition:'all 0.2s ease', outline:'none',
+                  boxShadow: active===i ? '0 4px 16px rgba(0,0,0,0.3)' : 'none',
+                }}>
+                  <Icon />
+                </button>
+              </BorderGlow>
               {/* progress bar under active tab */}
               {active === i && (
                 <motion.div key={active + '-bar'}

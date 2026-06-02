@@ -1,6 +1,7 @@
 'use client';
 
 import GradientBlinds from './GradientBlinds';
+import BorderGlow from './BorderGlow';
 
 export default function Hero() {
   return (
@@ -34,12 +35,24 @@ export default function Hero() {
 
       <div className="HeroAnnouncement_announcementContainer__hJe_K">
         <div className="HeroAnnouncement_announcementOuter__T5qC1">
-          <a className="HeroAnnouncement_announcement__TOQds" rel="external" href="/new">
-            <span>Try the new Raycast</span>
-            <span className="HeroAnnouncement_muted__SLMsc">
-              Learn more <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9.75 4.75 13.25 8m0 0-3.5 3.25M13.25 8H2.75"></path></svg>
-            </span>
-          </a>
+          <BorderGlow
+            edgeSensitivity={30}
+            glowColor="40 80 80"
+            backgroundColor="transparent"
+            borderRadius={28}
+            glowRadius={20}
+            glowIntensity={1.0}
+            coneSpread={25}
+            animated={true}
+            colors={['#c084fc', '#f472b6', '#38bdf8']}
+          >
+            <a className="HeroAnnouncement_announcement__TOQds" rel="external" href="/new" style={{ border: 'none' }}>
+              <span>Try the new Raycast</span>
+              <span className="HeroAnnouncement_muted__SLMsc">
+                Learn more <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M9.75 4.75 13.25 8m0 0-3.5 3.25M13.25 8H2.75"></path></svg>
+              </span>
+            </a>
+          </BorderGlow>
         </div>
       </div>
 
