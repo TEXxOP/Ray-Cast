@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type CSSProperties } from 'react';
 import { Renderer, Program, Mesh, Triangle } from 'ogl';
 import './GradientBlinds.css';
 
@@ -36,7 +36,7 @@ interface GradientBlindsProps {
   spotlightOpacity?: number;
   distortAmount?: number;
   shineDirection?: 'left' | 'right';
-  mixBlendMode?: any;
+  mixBlendMode?: CSSProperties['mixBlendMode'];
 }
 
 const GradientBlinds = ({
@@ -59,10 +59,10 @@ const GradientBlinds = ({
 }: GradientBlindsProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const rafRef = useRef<number | null>(null);
-  const programRef = useRef<any>(null);
-  const meshRef = useRef<any>(null);
-  const geometryRef = useRef<any>(null);
-  const rendererRef = useRef<any>(null);
+  const programRef = useRef<Program | null>(null);
+  const meshRef = useRef<Mesh<Triangle, Program> | null>(null);
+  const geometryRef = useRef<Triangle | null>(null);
+  const rendererRef = useRef<Renderer | null>(null);
   const mouseTargetRef = useRef([0, 0]);
   const lastTimeRef = useRef(0);
   const firstResizeRef = useRef(true);
@@ -167,36 +167,69 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
     float aspect = iResolution.x / iResolution.y;
     vec2 p = uv0 * 2.0 - 1.0;
     p.x *= aspect;
-    vec2 pr = rotate2D(p, uAngle);
-    pr.x /= aspect;
-    vec2 uv = pr * 0.5 + 0.5;
 
-    vec2 uvMod = uv;
+    vec2 q = rotate2D(p - vec2(0.02, -0.04), uAngle);
+    float breathe = sin(iTime * 0.28 + q.y * 1.4) * 0.026 + cos(iTime * 0.18 + q.y * 2.1) * 0.018;
+    q.x += breathe;
+    q.y += sin(iTime * 0.16 + q.x * 2.5) * 0.018;
+
     if (uDistort > 0.0) {
-      float a = uvMod.y * 6.0;
-      float b = uvMod.x * 6.0;
-      float w = 0.01 * uDistort;
-      uvMod.x += sin(a) * w;
-      uvMod.y += cos(b) * w;
+      q.x += sin(q.y * 4.6 + iTime * 0.38) * 0.018 * uDistort;
+      q.y += cos(q.x * 3.8 + iTime * 0.24) * 0.014 * uDistort;
     }
-    float t = uvMod.x;
+
+    float t = clamp((q.x + 1.05) / 2.25, 0.0, 1.0);
     if (uMirror > 0.5) {
       t = 1.0 - abs(1.0 - 2.0 * fract(t));
     }
     vec3 base = getGradientColor(t);
 
-    vec2 offset = vec2(iMouse.x/iResolution.x, iMouse.y/iResolution.y);
-  float d = length(uv0 - offset);
-  float r = max(uSpotlightRadius, 1e-4);
-  float dn = d / r;
-  float spot = (1.0 - 2.0 * pow(dn, uSpotlightSoftness)) * uSpotlightOpacity;
-  vec3 cir = vec3(spot);
-  float stripe = fract(uvMod.x * max(uBlindCount, 1.0));
-  if (uShineFlip > 0.5) stripe = 1.0 - stripe;
-    vec3 ran = vec3(stripe);
+    float count = max(uBlindCount, 1.0);
+    float period = 2.34 / count;
+    float phase = (q.x + 1.17) / period;
+    float cell = fract(phase);
+    if (uShineFlip > 0.5) cell = 1.0 - cell;
 
-    vec3 col = cir + base - ran;
-    col += (rand(gl_FragCoord.xy + iTime) - 0.5) * uNoise;
+    float blade = smoothstep(0.055, 0.13, cell) * (1.0 - smoothstep(0.57, 0.72, cell));
+    float localBlade = clamp((cell - 0.08) / 0.54, 0.0, 1.0);
+
+    float acrossMask = smoothstep(-1.22, -0.84, q.x) * (1.0 - smoothstep(1.00, 1.42, q.x));
+    float lengthMask = smoothstep(-1.42, -0.84, q.y) * (1.0 - smoothstep(1.00, 1.44, q.y));
+    vec2 coreP = vec2(p.x * 0.72, (p.y + 0.07) * 1.18);
+    float coreGlow = exp(-dot(coreP, coreP) * 1.35);
+
+    vec2 mouseUv = vec2(iMouse.x / iResolution.x, iMouse.y / iResolution.y);
+    vec2 mouseDelta = uv0 - mouseUv;
+    mouseDelta.x *= aspect * 0.58;
+    float r = max(uSpotlightRadius, 1e-4);
+    float hover = pow(clamp(1.0 - length(mouseDelta) / r, 0.0, 1.0), max(uSpotlightSoftness, 0.05)) * uSpotlightOpacity;
+
+    float curtain = blade * acrossMask * lengthMask;
+    float curtainLight = curtain * (0.26 + coreGlow * 1.18 + hover * 0.95);
+    vec3 hotRed = mix(vec3(0.32, 0.00, 0.015), vec3(1.0, 0.02, 0.045), clamp(coreGlow + hover * 0.45, 0.0, 1.0));
+    vec3 col = mix(base * 0.68, hotRed, 0.74) * curtainLight;
+
+    float innerSheen = pow(smoothstep(0.26, 0.93, localBlade), 1.25) * curtain * (0.42 + hover * 0.55 + coreGlow * 0.48);
+    col += vec3(1.0, 0.48, 0.52) * innerSheen;
+    col += vec3(1.0, 0.88, 0.82) * pow(hover, 1.65) * curtain * (0.18 + 0.52 * localBlade);
+
+    float rimLeft = exp(-pow((cell - 0.075) / 0.026, 2.0));
+    float rimRight = exp(-pow((cell - 0.60) / 0.038, 2.0));
+    float rim = (rimLeft * 0.36 + rimRight * 0.74) * acrossMask * lengthMask * (0.32 + coreGlow * 0.82 + hover * 0.68);
+    vec3 rimColor = mix(vec3(1.0, 0.14, 0.23), vec3(0.08, 0.64, 1.0), smoothstep(0.05, 1.05, q.x));
+    col += rimColor * rim;
+
+    float redHaze = exp(-dot(vec2(q.x * 0.86, q.y * 0.58), vec2(q.x * 0.86, q.y * 0.58)) * 1.08);
+    col += vec3(0.72, 0.0, 0.025) * redHaze * acrossMask * lengthMask * 0.34;
+
+    float grain = rand(gl_FragCoord.xy + vec2(iTime * 34.0, iTime * 17.0));
+    float grainMask = clamp(curtainLight + rim + redHaze * 0.42, 0.0, 1.0);
+    col *= 0.83 + grain * 0.34;
+    col += (grain - 0.5) * uNoise * 0.42 * grainMask;
+
+    float vignette = 1.0 - smoothstep(0.68, 1.74, length(vec2(p.x * 0.64, p.y * 0.96)));
+    col *= vignette;
+    col = clamp(col, vec3(0.0), vec3(1.0));
 
     fragColor = vec4(col, 1.0);
 }
@@ -244,7 +277,7 @@ void main() {
 
     const geometry = new Triangle(gl);
     geometryRef.current = geometry;
-    const mesh = new Mesh(gl, { geometry, program });
+    const mesh = new Mesh<Triangle, Program>(gl, { geometry, program });
     meshRef.current = mesh;
 
     const resize = () => {
@@ -284,7 +317,7 @@ void main() {
         uniforms.iMouse.value = [x, y];
       }
     };
-    canvas.addEventListener('pointermove', onPointerMove);
+    window.addEventListener('pointermove', onPointerMove);
 
     const loop = (t: number) => {
       rafRef.current = requestAnimationFrame(loop);
@@ -315,20 +348,13 @@ void main() {
 
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      canvas.removeEventListener('pointermove', onPointerMove);
+      window.removeEventListener('pointermove', onPointerMove);
       ro.disconnect();
       if (canvas.parentElement === container) {
         container.removeChild(canvas);
       }
-      const callIfFn = (obj: any, key: string) => {
-        if (obj && typeof obj[key] === 'function') {
-          obj[key].call(obj);
-        }
-      };
-      callIfFn(programRef.current, 'remove');
-      callIfFn(geometryRef.current, 'remove');
-      callIfFn(meshRef.current, 'remove');
-      callIfFn(rendererRef.current, 'destroy');
+      programRef.current?.remove();
+      geometryRef.current?.remove();
       programRef.current = null;
       geometryRef.current = null;
       meshRef.current = null;
