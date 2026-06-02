@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ClipboardContent, AIContent, EmojiContent, CalculatorContent, WindowContent } from './ShowcaseContents';
 import Dock from './Dock';
-import Galaxy from './Galaxy';
 
 // ── SVG Tab Icons ────────────────────────────────
 const ClipSVG  = () => <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="2" width="6" height="4" rx="1"/><rect x="3" y="6" width="18" height="16" rx="2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>;
@@ -99,22 +98,22 @@ export default function RaycastShowcase() {
           background: 'radial-gradient(ellipse 70% 50% at 50% 30%, rgba(255,150,150,0.04) 0%, transparent 70%)',
           zIndex: 1,
         }} />
-        <div style={{ position: 'absolute', inset: 0, opacity: 0.8 }}>
-          <Galaxy 
-            mouseRepulsion={false}
-            mouseInteraction={false}
-            density={0.5}
-            glowIntensity={0.2}
-            saturation={0}
-            hueShift={140}
-            twinkleIntensity={0.4}
-            rotationSpeed={0.03}
-            repulsionStrength={2}
-            autoCenterRepulsion={0}
-            starSpeed={0.5}
-            speed={0.5}
-          />
-        </div>
+        <div style={{ 
+          position: 'absolute', 
+          inset: 0, 
+          opacity: 0.6,
+          backgroundImage: `
+            radial-gradient(1px 1px at 20px 30px, rgba(255,255,255,0.8) 100%, transparent),
+            radial-gradient(1px 1px at 40px 70px, rgba(255,255,255,0.6) 100%, transparent),
+            radial-gradient(1.5px 1.5px at 90px 40px, rgba(255,255,255,0.9) 100%, transparent),
+            radial-gradient(2px 2px at 160px 120px, rgba(255,255,255,0.4) 100%, transparent),
+            radial-gradient(1px 1px at 210px 90px, rgba(255,255,255,0.7) 100%, transparent),
+            radial-gradient(1px 1px at 260px 180px, rgba(255,255,255,0.5) 100%, transparent),
+            radial-gradient(1.5px 1.5px at 320px 50px, rgba(255,255,255,0.8) 100%, transparent)
+          `,
+          backgroundSize: '400px 400px',
+          zIndex: 0
+        }} />
       </div>
 
       {/* ── MacBook Frame ── */}
