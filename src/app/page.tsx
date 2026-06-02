@@ -1,27 +1,5 @@
-import Nav from '@/components/Nav';
-import Hero from '@/components/Hero';
-import RaycastShowcase from '@/components/RaycastShowcase';
-import Extensions from '@/components/Extensions';
-import AISection from '@/components/AISection';
-import Testimonials from '@/components/Testimonials';
-import Automation from '@/components/Automation';
-import { Tagline, Community, Developers, CTA, Footer } from '@/components/Sections';
+import RaycastInspiredPage from '@/components/RaycastInspiredPage';
 
 export default function Home() {
-  return (
-    <>
-      <Nav />
-      <Hero />
-      <RaycastShowcase />
-      <Tagline />
-      <Extensions />
-      <AISection />
-      <Testimonials />
-      <Automation />
-      <Community />
-      <Developers />
-      <CTA />
-      <Footer />
-    </>
-  );
+  return <RaycastInspiredPage />;
 }

@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# reference / extraction files
+raycast-home.html
+www.raycast.com/
+extract.js
+fetch.js
