@@ -1,29 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import RaycastLogo from './RaycastLogo';
-
-const NAV_LINKS = [
-  { label: 'Store',       href: 'https://www.raycast.com/store' },
-  { label: 'Pro',         href: 'https://www.raycast.com/pro' },
-  { label: 'AI',          href: 'https://www.raycast.com/core-features/ai' },
-  { label: 'iOS',         href: 'https://www.raycast.com/ios' },
-  { label: 'Windows',     href: 'https://www.raycast.com/windows' },
-  { label: 'Teams',       href: 'https://www.raycast.com/teams' },
-  { label: 'Developers',  href: 'https://www.raycast.com/developers' },
-  { label: 'Blog',        href: 'https://www.raycast.com/blog' },
-  { label: 'Pricing',     href: 'https://www.raycast.com/pricing' },
-];
-
-const AppleIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16" width={13} height={13}>
-    <path fill="currentColor" d="M12.665 15.358c-.905.844-1.893.711-2.843.311-1.006-.409-1.93-.427-2.991 0-1.33.551-2.03.391-2.825-.31C-.498 10.886.166 4.078 5.28 3.83c1.246.062 2.114.657 2.843.71 1.09-.213 2.133-.826 3.296-.746 1.393.107 2.446.64 3.138 1.6-2.88 1.662-2.197 5.315.443 6.337-.526 1.333-1.21 2.657-2.345 3.635zM8.03 3.778C7.892 1.794 9.563.16 11.483 0c.268 2.293-2.16 4-3.452 3.777" />
-  </svg>
-);
 
 export default function Nav() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -33,185 +12,42 @@ export default function Nav() {
   }, []);
 
   return (
-    <>
-      <nav
-        style={{
-          position: 'fixed',
-          top: 16,
-          left: '50%',
-          transform: 'translateX(-50%)',
-          zIndex: 200,
-          width: 'calc(100% - 48px)',
-          maxWidth: 1100,
-        }}
-      >
-        {/* The pill container */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 0,
-            background: scrolled ? 'rgba(10,10,10,0.92)' : 'rgba(18,18,18,0.82)',
-            backdropFilter: 'blur(24px)',
-            WebkitBackdropFilter: 'blur(24px)',
-            border: '1px solid rgba(255,255,255,0.09)',
-            borderRadius: 14,
-            padding: '0 8px 0 16px',
-            height: 58,
-            transition: 'background 0.3s',
-          }}
-        >
-          {/* Logo */}
-          <a
-            href="https://www.raycast.com"
-            style={{
-              display: 'flex', alignItems: 'center', gap: 8,
-              fontWeight: 650, fontSize: 14.5, letterSpacing: '-0.3px',
-              color: '#fff', textDecoration: 'none', flexShrink: 0,
-              marginRight: 6,
-            }}
-          >
-            <RaycastLogo id="nav" />
-            Raycast
+    <div className={`Navbar_container__x_wnu ${scrolled ? 'Navbar_scrolled__...' : ''}`} id="navbar" style={scrolled ? { height: 68, background: 'rgba(7, 8, 9, 0.94)', boxShadow: '0 10px 32px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.05)' } : {}}>
+      <div className="Navbar_navbar__XlgWY">
+        <div className="Navbar_logoContainer__enocR">
+          <a href="/">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 48 48" className="Navbar_logo__ycYQk"><path fill="#FF6363" fillRule="evenodd" d="M12 30.99V36L-.01 23.99l2.516-2.499zM17.01 36H12l12.011 12.01 2.506-2.505zm28.487-9.497L48 24 24 0l-2.503 2.503L30.98 12h-5.732l-6.62-6.614-2.506 2.503 4.122 4.122h-2.869v18.625H36V27.77l4.122 4.122 2.503-2.506L36 22.747v-5.732zM13.253 10.747l-2.503 2.506 2.686 2.686 2.503-2.506zm21.314 21.314-2.495 2.503 2.686 2.686 2.506-2.503zM7.878 16.121l-2.503 2.504L12 25.253v-5.012zM27.756 36h-5.009l6.628 6.625 2.503-2.503z" clipRule="evenodd"></path></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 93 24" className="Navbar_logoFull__sb4tB"><g clipPath="url(#logo-full_svg__a)"><path fill="#FF6363" fillRule="evenodd" d="M6 15.491v2.504l-6-6 1.251-1.251zm2.504 2.504H6l6 6 1.251-1.251zm14.24-4.747 1.253-1.253-12-12-1.25 1.256 4.747 4.747h-2.868L9.312 2.691 8.061 3.942l2.06 2.061h-1.44v9.314h9.314v-1.44l2.061 2.06 1.251-1.25-3.312-3.314v-2.87zM6.626 5.374 5.37 6.627 6.714 7.97l1.252-1.252zM17.282 16.03l-1.252 1.253 1.343 1.344 1.253-1.253zM3.939 8.06 2.686 9.315 6 12.627v-2.506zM13.88 18h-2.506l3.313 3.314 1.253-1.253z" clipRule="evenodd"></path><path fill="#E6E6E6" d="M90.987 17.98q-1.214 0-1.89-.659-.678-.661-.678-1.825v-4.8h-1.45V8.899h1.458l.26-2.4h1.707v2.4h2.227v1.8h-2.227v4.538a.95.95 0 0 0 .256.667.88.88 0 0 0 .68.278h1.29v1.799zM82.268 18.15q-1.616 0-2.6-.77a3.45 3.45 0 0 1-1.259-2.049h2.143c.093.312.301.577.582.742.344.199.737.296 1.134.28 1.143 0 1.717-.32 1.717-.937q0-.462-.539-.706a6 6 0 0 0-1.302-.389 16 16 0 0 1-1.538-.376 2.67 2.67 0 0 1-1.314-.875q-.535-.64-.537-1.681a2.38 2.38 0 0 1 .905-1.903q.909-.758 2.52-.757c1.074 0 1.92.24 2.56.719a3.22 3.22 0 0 1 1.215 1.94h-2.146q-.343-.857-1.624-.857-1.374 0-1.373.86a.74.74 0 0 0 .386.64c.293.18.62.296.96.345q.64.109 1.26.291.645.184 1.26.451c.399.181.737.475.971.845.272.435.407.942.389 1.455a2.4 2.4 0 0 1-.96 1.974q-.959.756-2.81.758M75.88 9.636q-.991-.89-2.773-.89-1.425 0-2.386.766a3.6 3.6 0 0 0-1.28 1.979h2.026c.103-.297.3-.553.56-.728a1.8 1.8 0 0 1 1.072-.303 1.92 1.92 0 0 1 1.317.427 1.51 1.51 0 0 1 .48 1.197v.436h-2.31q-1.607 0-2.514.8a2.59 2.59 0 0 0-.907 2.019 2.66 2.66 0 0 0 .844 2.033q.845.8 2.24.8a3.4 3.4 0 0 0 1.658-.385c.411-.2.759-.51 1.005-.896h.083l.16 1.12h1.715v-5.92q.002-1.56-.99-2.455m-.975 4.852a1.83 1.83 0 0 1-.6 1.44q-.595.53-1.627.53-.751 0-1.149-.34a1.08 1.08 0 0 1-.4-.866c0-.8.523-1.197 1.55-1.197h2.226zM64.021 18.17q-1.95 0-3.117-1.252-1.166-1.25-1.168-3.462c0-1.476.39-2.624 1.164-3.46q1.162-1.251 3.121-1.25 1.59 0 2.637.849a4 4 0 0 1 1.389 2.147h-1.965a2.2 2.2 0 0 0-2.06-1.197 2.08 2.08 0 0 0-1.683.76q-.64.764-.64 2.15 0 1.388.64 2.153a2.08 2.08 0 0 0 1.682.763 2.21 2.21 0 0 0 2.06-1.2h1.966a4.03 4.03 0 0 1-1.39 2.15q-1.041.848-2.636.848M52.43 21.432l1.371-3.43-3.683-9.082h2.143l2.486 6.427h.082l2.49-6.427h2.142l-4.975 12.512zM48.267 9.636q-.99-.89-2.774-.89-1.423 0-2.386.766a3.57 3.57 0 0 0-1.27 1.979h2.024c.103-.297.299-.553.56-.728a1.8 1.8 0 0 1 1.072-.303q.835 0 1.316.427a1.5 1.5 0 0 1 .48 1.197v.436h-2.32q-1.6 0-2.513.8a2.59 2.59 0 0 0-.909 2.019 2.66 2.66 0 0 0 .845 2.025q.845.8 2.24.8a3.4 3.4 0 0 0 1.656-.385c.412-.2.76-.51 1.006-.896h.082l.17 1.12h1.712v-5.92q0-1.552-.99-2.447m-.978 4.852a1.83 1.83 0 0 1-.6 1.44q-.595.53-1.628.53-.751 0-1.15-.34a1.09 1.09 0 0 1-.4-.866q.01-1.194 1.55-1.197h2.228zM37.152 13.456q.46-.122.88-.346.49-.268.909-.64c.336-.31.595-.693.757-1.12.194-.502.29-1.036.283-1.574q0-1.714-1.094-2.746-1.096-1.032-2.848-1.027h-4.972v12h2.143v-4.454h1.625L37.923 18h2.4zM33.21 11.65v-3.76h2.654c.608 0 1.088.16 1.44.494.352.335.531.792.531 1.386q0 .892-.534 1.389c-.392.34-.9.517-1.42.491z"></path></g><defs><clipPath id="logo-full_svg__a"><path fill="#fff" d="M0 0h92.622v24H0z"></path></clipPath></defs></svg>
           </a>
-
-          {/* Divider */}
-          <div style={{ width: 1, height: 20, background: 'rgba(255,255,255,0.08)', marginRight: 6, flexShrink: 0 }} />
-
-          {/* Desktop links — centered */}
-          <div style={{ display: 'flex', gap: 0, flex: 1, justifyContent: 'center' }} className="nav-links-desktop">
-            {NAV_LINKS.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                style={{
-                  fontSize: 13.5, fontWeight: 500,
-                  color: 'rgba(255,255,255,0.5)',
-                  padding: '6px 10px', borderRadius: 8,
-                  transition: 'color .15s, background .15s',
-                  textDecoration: 'none',
-                  whiteSpace: 'nowrap',
-                }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.color = '#fff';
-                  (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.06)';
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.5)';
-                  (e.currentTarget as HTMLElement).style.background = 'transparent';
-                }}
-              >
-                {link.label}
-              </a>
-            ))}
+          <div className="Navbar_navToggle__skv0c">
+            <div className="Navbar_navToggleLine__wBYSL"></div>
+            <div className="Navbar_navToggleLine__wBYSL"></div>
+            <div className="Navbar_navToggleLine__wBYSL"></div>
           </div>
-
-          {/* Desktop actions */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 4, flexShrink: 0 }} className="nav-actions-desktop">
-            <a
-              href="https://www.raycast.com/users/sign_in"
-              style={{
-                fontSize: 13.5, fontWeight: 500,
-                color: 'rgba(255,255,255,0.5)',
-                padding: '6px 11px', borderRadius: 8,
-                transition: 'color .15s, background .15s',
-                textDecoration: 'none',
-              }}
-              onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.color = '#fff';
-                (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.06)';
-              }}
-              onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.5)';
-                (e.currentTarget as HTMLElement).style.background = 'transparent';
-              }}
-            >
-              Log in
-            </a>
-            <button
-              style={{
-                display: 'inline-flex', alignItems: 'center', gap: 7,
-                background: '#ffffff', color: '#0a0a0a', fontWeight: 600,
-                padding: '7px 14px', fontSize: 13, borderRadius: 8,
-                border: 'none', cursor: 'pointer', fontFamily: 'inherit',
-                transition: 'background .15s',
-                letterSpacing: '-0.1px',
-              }}
-              onMouseEnter={e => (e.currentTarget.style.background = '#e4e4e4')}
-              onMouseLeave={e => (e.currentTarget.style.background = '#ffffff')}
-            >
-              <AppleIcon />
-              Download
-            </button>
-          </div>
-
-          {/* Burger (mobile) */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            style={{
-              display: 'none', flexDirection: 'column', gap: 5,
-              background: 'none', border: 'none', cursor: 'pointer', padding: 4,
-              marginLeft: 4,
-            }}
-            className="nav-burger"
-          >
-            <span style={{ display: 'block', width: 22, height: 2, background: 'rgba(255,255,255,0.6)', borderRadius: 2 }} />
-            <span style={{ display: 'block', width: 22, height: 2, background: 'rgba(255,255,255,0.6)', borderRadius: 2 }} />
-            <span style={{ display: 'block', width: 22, height: 2, background: 'rgba(255,255,255,0.6)', borderRadius: 2 }} />
-          </button>
         </div>
-
-        {/* Mobile dropdown */}
-        <AnimatePresence>
-          {menuOpen && (
-            <motion.div
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              style={{
-                marginTop: 8,
-                background: 'rgba(12,12,12,0.97)',
-                border: '1px solid rgba(255,255,255,0.09)',
-                borderRadius: 14,
-                padding: '12px 16px 16px',
-                backdropFilter: 'blur(24px)',
-              }}
-            >
-              {NAV_LINKS.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  onClick={() => setMenuOpen(false)}
-                  style={{
-                    display: 'block', padding: '11px 4px',
-                    color: 'rgba(255,255,255,0.6)', fontSize: 15,
-                    borderBottom: '1px solid rgba(255,255,255,0.05)',
-                    textDecoration: 'none',
-                  }}
-                >
-                  {link.label}
-                </a>
-              ))}
-              <div style={{ display: 'flex', gap: 10, marginTop: 14, alignItems: 'center' }}>
-                <a href="https://www.raycast.com/users/sign_in" style={{ color: 'rgba(255,255,255,0.6)', fontSize: 14, fontWeight: 500, textDecoration: 'none' }}>Log in</a>
-                <button style={{
-                  background: '#ffffff', color: '#0a0a0a', fontWeight: 600,
-                  padding: '9px 18px', fontSize: 14, borderRadius: 8,
-                  border: 'none', cursor: 'pointer', fontFamily: 'inherit',
-                }}>Download</button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        <style>{`
-          @media (max-width: 900px) {
-            .nav-links-desktop { display: none !important; }
-            .nav-actions-desktop { display: none !important; }
-            .nav-burger { display: flex !important; }
-          }
-        `}</style>
-      </nav>
-    </>
+        <div className="Navbar_navigation__sNAXS">
+          <a className="NavLink_navLink__REP72" href="/store">Store</a>
+          <a className="NavLink_navLink__REP72" href="/pro">Pro</a>
+          <a className="NavLink_navLink__REP72" href="/core-features/ai">AI</a>
+          <a className="NavLink_navLink__REP72" href="/ios">iOS</a>
+          <a className="NavLink_navLink__REP72" href="/windows">Windows</a>
+          <a className="NavLink_navLink__REP72" href="/teams">Teams</a>
+          <a className="NavLink_navLink__REP72" href="/developers">Developers</a>
+          <a className="NavLink_navLink__REP72" href="/blog">Blog</a>
+          <a className="NavLink_navLink__REP72" href="/pricing">Pricing</a>
+        </div>
+        <div className="Navbar_secondary__UAPPh">
+          <div className="Navbar_signedOutWide__P7f_w">
+            <a className="NavLink_navLink__REP72" href="/users/sign_in">Log in</a>
+            <a className="Button_button__JJiqJ Button_light__KdYEB Navbar_downloadButton__yQ3j6" aria-disabled="false">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="currentColor" d="M12.665 15.358c-.905.844-1.893.711-2.843.311-1.006-.409-1.93-.427-2.991 0-1.33.551-2.03.391-2.825-.31C-.498 10.886.166 4.078 5.28 3.83c1.246.062 2.114.657 2.843.71 1.09-.213 2.133-.826 3.296-.746 1.393.107 2.446.64 3.138 1.6-2.88 1.662-2.197 5.315.443 6.337-.526 1.333-1.21 2.657-2.345 3.635zM8.03 3.778C7.892 1.794 9.563.16 11.483 0c.268 2.293-2.16 4-3.452 3.777"></path></svg>Download
+            </a>
+          </div>
+          <div className="Navbar_signedOutMedium__sdlYf">
+            <a className="Button_button__JJiqJ Button_light__KdYEB" aria-disabled="false" href="/users/sign_in">Log in</a>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
