@@ -1,7 +1,7 @@
 'use client';
 
 import BorderGlow from './BorderGlow';
-import GradientBlinds from './GradientBlinds';
+import LightPillar from './LightPillar';
 
 export default function Hero() {
   return (
@@ -58,19 +58,19 @@ export default function Hero() {
 
       <div className="page_heroBackground__MQqbj" style={{ maxWidth: 'none', width: '100vw', background: '#000000' }}>
         <div style={{ position: 'absolute', inset: 0, background: '#000' }}>
-          <GradientBlinds
-            gradientColors={['#FF9FFC', '#5227FF']}
-            angle={20}
-            noise={0.5}
-            blindCount={16}
-            blindMinWidth={60}
-            spotlightRadius={0.5}
-            spotlightSoftness={1}
-            spotlightOpacity={1}
-            mouseDampening={0.15}
-            distortAmount={0}
-            shineDirection="left"
-            mixBlendMode="lighten"
+          <LightPillar
+            topColor="#ff3333"
+            bottomColor="#660000"
+            intensity={1}
+            rotationSpeed={0.3}
+            glowAmount={0.002}
+            pillarWidth={3}
+            pillarHeight={0.4}
+            noiseIntensity={0.5}
+            pillarRotation={25}
+            interactive={false}
+            mixBlendMode="screen"
+            quality="high"
           />
         </div>
       </div>
