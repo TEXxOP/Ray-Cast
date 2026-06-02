@@ -3,13 +3,28 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import GradientBlinds from './GradientBlinds';
+import StarBorder from './StarBorder';
+
+// ── SVG Icons ─────────────────────────────────────────────────────────────────
+const AppleIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16" width={16} height={16}>
+    <path fill="currentColor" d="M12.665 15.358c-.905.844-1.893.711-2.843.311-1.006-.409-1.93-.427-2.991 0-1.33.551-2.03.391-2.825-.31C-.498 10.886.166 4.078 5.28 3.83c1.246.062 2.114.657 2.843.71 1.09-.213 2.133-.826 3.296-.746 1.393.107 2.446.64 3.138 1.6-2.88 1.662-2.197 5.315.443 6.337-.526 1.333-1.21 2.657-2.345 3.635zM8.03 3.778C7.892 1.794 9.563.16 11.483 0c.268 2.293-2.16 4-3.452 3.777" />
+  </svg>
+);
+
+const WindowsIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16" width={16} height={16}>
+    <path fill="currentColor" fillRule="evenodd" d="M0 0h7.584v7.584H0zm8.416 0h7.583v7.584H8.416zm-.832 8.416H0V16h7.584zm.832 0h7.583V16H8.416z" clipRule="evenodd" />
+  </svg>
+);
 
 export default function Hero() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
-  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
-  const contentY = useTransform(scrollYProgress, [0, 0.6], ['0px', '30px']);
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '25%']);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const contentY = useTransform(scrollYProgress, [0, 0.5], ['0px', '40px']);
+  const contentScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.95]);
 
   return (
     <section
@@ -22,10 +37,14 @@ export default function Hero() {
         justifyContent: 'center',
         position: 'relative',
         overflow: 'hidden',
+        paddingTop: 60,
       }}
     >
-      {/* ── GradientBlinds — FULL 100vh hero background ── */}
+      {/* ── Background: Raycast signature red noise blinds ── */}
       <motion.div
+        initial={{ opacity: 0, scale: 1.02, filter: 'blur(20px)' }}
+        animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+        transition={{ duration: 2.5, ease: 'easeOut', delay: 0.1 }}
         style={{
           position: 'absolute',
           inset: 0,
@@ -35,22 +54,33 @@ export default function Hero() {
         }}
       >
         <GradientBlinds
-          gradientColors={['#FF3030', '#CC0000', '#FF1111', '#AA0000', '#FF4444']}
-          angle={20}
-          noise={0.3}
-          blindCount={16}
-          blindMinWidth={60}
-          spotlightRadius={0.75}
-          spotlightSoftness={1}
-          spotlightOpacity={1}
-          mouseDampening={0.15}
+          gradientColors={['#ff4040', '#d81010', '#8c0000', '#ff1010']}
+          angle={18}
+          noise={0}
+          blindCount={12}
+          blindMinWidth={75}
+          spotlightRadius={0.7}
+          spotlightSoftness={1.5}
+          spotlightOpacity={0.9}
+          mouseDampening={0.1}
           distortAmount={0}
           shineDirection="left"
-          mixBlendMode="lighten"
+          mixBlendMode="normal"
         />
+        {/* Soft vignette to blend bottom edge into body bg */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: 'radial-gradient(ellipse at 50% -20%, transparent 40%, #0a0a0a 100%)',
+          zIndex: 1,
+        }} />
+        <div style={{
+          position: 'absolute', bottom: 0, left: 0, right: 0, height: 300,
+          background: 'linear-gradient(to bottom, transparent, #0a0a0a)',
+          zIndex: 1,
+        }} />
       </motion.div>
 
-      {/* ── All hero content stacked and centered ── */}
+      {/* ── Content ── */}
       <motion.div
         style={{
           position: 'relative',
@@ -63,144 +93,139 @@ export default function Hero() {
           padding: '0 24px',
           opacity: contentOpacity,
           y: contentY,
+          scale: contentScale,
         }}
       >
-        {/* Headline */}
-        <motion.h1
-          initial={{ opacity: 0, y: 32 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+        {/* ── Try the new Raycast ── */}
+        <StarBorder
+          as={motion.a}
+          href="/new"
+          color="#ff4040"
+          speed="4s"
+          initial={{ opacity: 0, y: -15, filter: 'blur(2px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 1.0, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
           style={{
-            fontSize: 'clamp(46px, 6.5vw, 72px)',
-            fontWeight: 700,
-            letterSpacing: '-1.5px',
-            lineHeight: 1.08,
-            color: '#ffffff',
-            marginBottom: 18,
-            maxWidth: 620,
+            marginBottom: 32,
+            textDecoration: 'none',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.24), 0 2px 8px rgba(0,0,0,0.12)',
           }}
         >
-          Your shortcut to<br />everything.
+          <span style={{ color: '#ffffff', fontWeight: 500, letterSpacing: '0.1px' }}>Try the new Raycast</span>
+          <span style={{ color: 'rgba(255,255,255,0.15)', margin: '0 12px', fontSize: 13, transform: 'translateY(-0.5px)' }}>|</span>
+          <span style={{ color: 'rgba(255,255,255,0.6)', fontWeight: 500, letterSpacing: '0.1px', display: 'flex', alignItems: 'center', gap: 4 }}>
+            Learn more <span style={{ fontFamily: 'system-ui', fontSize: 14 }}>→</span>
+          </span>
+        </StarBorder>
+
+        <motion.h1
+          initial={{ opacity: 0, y: 40, filter: 'blur(8px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          style={{
+            fontSize: 64,
+            fontWeight: 600,
+            fontFeatureSettings: '"ss08" on, "ss02" on, "liga" off',
+            lineHeight: '110%',
+            color: '#ffffff',
+            marginBottom: 24,
+            maxWidth: 540,
+            textShadow: '0 4px 4px rgba(0, 0, 0, 0.15)',
+          }}
+        >
+          Your shortcut to everything.
         </motion.h1>
 
-        {/* Subtitle */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.75, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+          initial={{ opacity: 0, y: 25, filter: 'blur(4px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 1.2, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
           style={{
-            fontSize: 17,
-            color: 'rgba(255,255,255,0.85)',
-            lineHeight: 1.6,
-            maxWidth: 460,
+            fontSize: 18,
+            color: '#ffffff',
+            lineHeight: 'normal',
+            maxWidth: 540,
             fontWeight: 400,
-            marginBottom: 48,
+            marginBottom: 44,
+            letterSpacing: '0.2px',
+            textShadow: '0 4px 4px rgba(0, 0, 0, 0.25)',
+            textWrap: 'balance',
           }}
         >
           A collection of powerful productivity tools all within an extendable launcher. Fast, ergonomic and reliable.
         </motion.p>
 
-        {/* ── Download Buttons ── */}
+        {/* ── CTA Buttons ── */}
         <motion.div
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
-          style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 18 }}
+          initial={{ opacity: 0, y: 20, filter: 'blur(2px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ duration: 1.0, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+          style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 24 }}
         >
           <button
             style={{
-              display: 'inline-flex', alignItems: 'center', gap: 9,
-              background: 'rgba(255,255,255,0.92)',
+              display: 'inline-flex', alignItems: 'center', gap: 10,
+              background: '#ffffff',
               color: '#0a0a0a', fontWeight: 600,
-              padding: '12px 22px', fontSize: 14.5,
-              borderRadius: 10,
-              border: '1px solid rgba(255,255,255,0.3)',
+              padding: '16px 28px', fontSize: 16,
+              borderRadius: 12,
+              border: 'none',
               cursor: 'pointer', fontFamily: 'inherit',
-              transition: 'background 0.18s',
-              letterSpacing: '-0.1px',
+              transition: 'background 0.15s',
+              letterSpacing: '-0.2px',
+              boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
             }}
-            onMouseEnter={e => (e.currentTarget.style.background = '#ffffff')}
-            onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.92)')}
+            onMouseEnter={e => (e.currentTarget.style.background = '#e8e8e8')}
+            onMouseLeave={e => (e.currentTarget.style.background = '#ffffff')}
           >
-            <svg width="15" height="15" viewBox="0 0 814 1000" fill="#0a0a0a">
-              <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105.7-38.2-155.5-127.4C46 790.7 0 663 0 541.8c0-207.5 135.4-317.2 268.9-317.2 99.2 0 148.9 65.2 162.8 65.2 13.3 0 63.6-68.8 166.8-68.8 43.2 0 160.9 13.5 243.9 117.1zm-97.4-174.3c-4.5-28.4-17.5-91.2-51.2-133.3-30.9-37.5-86.1-64.9-133.8-64.9-2 0-4 .2-5.9.4 1.1 32.2 13.3 98.3 47.2 143.6 37.1 49.3 87.2 78.4 143.7 54.2z"/>
-            </svg>
+            <AppleIcon />
             Download for Mac
           </button>
 
-          <button
+          <a
+            href="https://ray.so/download-windows"
+            target="_blank" rel="noopener noreferrer"
             style={{
-              display: 'inline-flex', alignItems: 'center', gap: 9,
+              display: 'inline-flex', alignItems: 'center', gap: 10,
               background: 'rgba(255,255,255,0.92)',
               color: '#0a0a0a', fontWeight: 600,
-              padding: '12px 22px', fontSize: 14.5,
-              borderRadius: 10,
-              border: '1px solid rgba(255,255,255,0.3)',
-              cursor: 'pointer', fontFamily: 'inherit',
-              transition: 'background 0.18s',
-              letterSpacing: '-0.1px',
+              padding: '16px 28px', fontSize: 16,
+              borderRadius: 12,
+              border: 'none',
+              cursor: 'pointer', fontFamily: 'inherit', textDecoration: 'none',
+              transition: 'background 0.15s',
+              letterSpacing: '-0.2px',
+              boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
             }}
             onMouseEnter={e => (e.currentTarget.style.background = '#ffffff')}
             onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.92)')}
           >
-            <svg width="15" height="15" viewBox="0 0 448 512" fill="#0a0a0a">
-              <path d="M0 93.7l183.6-25.3v177H0V93.7zm0 324.6l183.6 25.3V268H0v150.3zM203.8 361l240.3 33.1V268H203.8v93zm0-175.1V268H444V143.9L203.8 185.9z"/>
-            </svg>
+            <WindowsIcon />
             Download for Windows (beta)
-          </button>
+          </a>
         </motion.div>
 
-        {/* Version meta */}
-        <motion.p
+        {/* ── Meta info ── */}
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.32 }}
+          transition={{ duration: 0.8, delay: 0.25 }}
           style={{
-            fontSize: 12,
-            color: 'rgba(255,255,255,0.3)',
+            fontSize: 12.5,
+            color: 'rgba(255,255,255,0.4)',
             fontFamily: 'ui-monospace, "SF Mono", Menlo, monospace',
-            letterSpacing: '0.01em',
-            marginBottom: 28,
+            letterSpacing: '0.02em',
+            marginBottom: 36,
           }}
         >
-          v1.104.18&nbsp;&nbsp;|&nbsp;&nbsp;macOS 13+&nbsp;&nbsp;|&nbsp;&nbsp;
-          <span style={{ textDecoration: 'underline', textDecorationColor: 'rgba(255,255,255,0.15)', cursor: 'pointer' }}>
+          <span>v1.104.19</span>
+          <span style={{ margin: '0 12px' }}>macOS 13+</span>
+          <a href="#" style={{ textDecoration: 'underline', textDecorationColor: 'rgba(255,255,255,0.2)', transition: 'color 0.15s' }}
+             onMouseEnter={e => (e.currentTarget.style.color = '#fff')}
+             onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.4)')}>
             Install via homebrew
-          </span>
-        </motion.p>
-
-        {/* "Try the new Raycast" pill */}
-        <motion.a
-          href="#"
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          style={{
-            display: 'inline-flex', alignItems: 'center', gap: 0,
-            background: 'rgba(255,255,255,0.04)',
-            border: '1px solid rgba(255,255,255,0.1)',
-            borderRadius: 100,
-            padding: '9px 18px',
-            fontSize: 13.5, fontWeight: 500,
-            color: '#ffffff',
-            cursor: 'pointer',
-            backdropFilter: 'blur(8px)',
-            transition: 'background 0.2s, border-color 0.2s',
-            textDecoration: 'none',
-          }}
-          onMouseEnter={e => {
-            e.currentTarget.style.background = 'rgba(255,255,255,0.08)';
-            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
-          }}
-          onMouseLeave={e => {
-            e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
-            e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
-          }}
-        >
-          <span style={{ color: '#ffffff', fontWeight: 600 }}>Try the new Raycast</span>
-          <span style={{ color: 'rgba(255,255,255,0.25)', margin: '0 10px' }}>|</span>
-          <span style={{ color: 'rgba(255,255,255,0.5)' }}>Learn more&nbsp;→</span>
-        </motion.a>
+          </a>
+        </motion.div>
       </motion.div>
     </section>
   );
