@@ -1,6 +1,6 @@
 'use client';
 
-import GradientBlinds from './GradientBlinds';
+import Galaxy from './Galaxy';
 import BorderGlow from './BorderGlow';
 
 export default function Hero() {
@@ -57,19 +57,19 @@ export default function Hero() {
       </div>
 
       <div className="page_heroBackground__MQqbj">
-        <GradientBlinds
-          gradientColors={['#07080A', '#7A000B', '#FF1F2F', '#FF7378', '#FFE0DC', '#B60012', '#020204', '#0D6F9B']}
-          angle={39}
-          noise={0.52}
-          blindCount={9}
-          blindMinWidth={120}
-          spotlightRadius={0.46}
-          spotlightSoftness={1.45}
-          spotlightOpacity={1.08}
-          mouseDampening={0.22}
-          distortAmount={0.35}
-          shineDirection="left"
-          mixBlendMode="lighten"
+        <Galaxy 
+          mouseRepulsion
+          mouseInteraction
+          density={1}
+          glowIntensity={0.5}
+          saturation={1.5}
+          hueShift={0}
+          twinkleIntensity={0.5}
+          rotationSpeed={0.05}
+          repulsionStrength={2}
+          autoCenterRepulsion={0}
+          starSpeed={0.5}
+          speed={1}
         />
       </div>
     </div>
