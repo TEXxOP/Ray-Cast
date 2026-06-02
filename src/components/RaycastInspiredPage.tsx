@@ -14,6 +14,7 @@ export default function RaycastInspiredPage() {
         fontFamily:
           'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
         overflowX: 'hidden',
+        isolation: 'isolate',
       }}
     >
       <Nav />
