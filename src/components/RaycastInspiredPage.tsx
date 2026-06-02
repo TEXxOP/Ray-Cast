@@ -1,5 +1,7 @@
 'use client';
 
+import { useEffect } from 'react';
+
 import Nav from './Nav';
 import Hero from './Hero';
 import RaycastShowcase from './RaycastShowcase';
