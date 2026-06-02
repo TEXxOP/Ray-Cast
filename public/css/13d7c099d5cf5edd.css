@@ -2134,9 +2134,8 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    width: 100vw;
-    left: 50%;
-    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
     overflow: hidden;
     background-color: var(--grey-900);

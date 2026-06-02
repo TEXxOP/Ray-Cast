@@ -45,13 +45,13 @@ export default function Hero() {
 
       <div className="page_heroBackground__MQqbj">
         <GradientBlinds
-          gradientColors={['#FF4B4B', '#9B0000', '#FF4B4B', '#100000']}
+          gradientColors={['#FFFFFF', '#FF6363', '#B80000', '#2E0000', '#000000']}
           angle={40}
-          noise={0.5}
-          blindCount={60}
-          blindMinWidth={10}
-          spotlightRadius={0.75}
-          spotlightSoftness={0.7}
+          noise={0.4}
+          blindCount={10}
+          blindMinWidth={80}
+          spotlightRadius={0.7}
+          spotlightSoftness={0.6}
           spotlightOpacity={1}
           mouseDampening={0.15}
           distortAmount={0}
