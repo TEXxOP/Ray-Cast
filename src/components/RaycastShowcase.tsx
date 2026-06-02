@@ -108,11 +108,11 @@ export default function RaycastShowcase() {
         {/* Laptop lid — the screen portion */}
         <div style={{
           background: '#000000',
-          border: '1px solid rgba(255,255,255,0.12)',
+          border: '2px solid #1a1a1a',
           borderBottom: 'none',
-          borderRadius: '16px 16px 0 0',
-          padding: '12px 12px 0',
-          boxShadow: '0 -4px 60px rgba(0,0,0,0.5)',
+          borderRadius: '20px 20px 0 0',
+          padding: '16px 16px 0',
+          boxShadow: '0 0 0 1px rgba(255,255,255,0.1), 0 -4px 60px rgba(0,0,0,0.6)',
           position: 'relative',
         }}>
           {/* Screen area (where the macOS UI lives) */}
@@ -127,9 +127,9 @@ export default function RaycastShowcase() {
               position: 'absolute',
               inset: 0,
               background: `
-                radial-gradient(120% 150% at 0% 100%, rgba(255, 60, 60, 0.15) 0%, transparent 50%),
-                radial-gradient(100% 100% at 80% 0%, rgba(255, 80, 80, 0.1) 0%, transparent 50%),
-                #0a0a0c
+                radial-gradient(140% 140% at 5% 105%, rgba(255, 40, 40, 0.4) 0%, transparent 50%),
+                radial-gradient(100% 100% at 85% 0%, rgba(255, 60, 60, 0.25) 0%, transparent 50%),
+                #050505
               `,
               zIndex: 0,
             }} />
