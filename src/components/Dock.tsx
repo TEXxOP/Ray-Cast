@@ -159,15 +159,6 @@ export default function Dock({
           >
             <DockIcon>{item.icon}</DockIcon>
             <DockLabel>{item.label}</DockLabel>
-            {item.isActive && (
-              <motion.div 
-                key={index + '-bar'}
-                className="dock-progress"
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 4.5, ease: 'linear' }}
-              />
-            )}
           </DockItem>
         ))}
       </motion.div>
