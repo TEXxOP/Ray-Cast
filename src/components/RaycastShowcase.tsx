@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ClipboardContent, AIContent, EmojiContent, CalculatorContent, WindowContent } from './ShowcaseContents';
-import BorderGlow from './BorderGlow';
+import Dock from './Dock';
 
 // ── SVG Tab Icons ────────────────────────────────
 const ClipSVG  = () => <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="2" width="6" height="4" rx="1"/><rect x="3" y="6" width="18" height="16" rx="2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>;
@@ -264,49 +264,19 @@ export default function RaycastShowcase() {
         }} />
 
         {/* ── Feature tab bar (below the MacBook) ── */}
-        <div style={{ display:'flex', justifyContent:'center', gap:12, padding:'36px 0 0', zIndex: 10 }}>
-          {TABS.map(({ id, Icon, label }, i) => (
-            <div key={id} style={{ position:'relative', display:'flex', flexDirection:'column', alignItems:'center' }}>
-              {active === i && (
-                <motion.div layoutId="tip" style={{ position:'absolute', bottom:'calc(100% + 10px)', background:'rgba(28,28,30,0.95)', border:'1px solid rgba(255,255,255,0.15)', borderRadius:8, padding:'5px 11px', fontSize:11.5, color:'#fff', whiteSpace:'nowrap', pointerEvents:'none', boxShadow: '0 4px 12px rgba(0,0,0,0.3)', fontWeight: 500 }}
-                  transition={{ type:'spring', stiffness:400, damping:30 }}>
-                  {label}
-                  <div style={{ position: 'absolute', bottom: -5, left: '50%', marginLeft: -5, width: 10, height: 10, background: 'rgba(28,28,30,0.95)', borderRight: '1px solid rgba(255,255,255,0.15)', borderBottom: '1px solid rgba(255,255,255,0.15)', transform: 'rotate(45deg)' }} />
-                </motion.div>
-              )}
-              <BorderGlow
-                edgeSensitivity={20}
-                glowColor={active === i ? '0 100 65' : '40 80 80'}
-                backgroundColor={active===i ? 'rgba(255,255,255,0.13)' : 'rgba(255,255,255,0.03)'}
-                borderRadius={13}
-                glowRadius={10}
-                glowIntensity={0.8}
-                coneSpread={20}
-                animated={false}
-                colors={active === i ? ['#ff4040', '#ff6b35', '#ff4040'] : ['#c084fc', '#f472b6', '#38bdf8']}
-              >
-                <button onClick={() => goTo(i)} title={label} style={{
-                  width:46, height:46, borderRadius:13,
-                  border:'none',
-                  background: 'transparent',
-                  color: active===i ? '#ffffff' : 'rgba(255,255,255,0.45)',
-                  cursor:'pointer', display:'flex', alignItems:'center', justifyContent:'center',
-                  transition:'all 0.2s ease', outline:'none',
-                  boxShadow: active===i ? '0 4px 16px rgba(0,0,0,0.3)' : 'none',
-                }}>
-                  <Icon />
-                </button>
-              </BorderGlow>
-              {/* progress bar under active tab */}
-              {active === i && (
-                <motion.div key={active + '-bar'}
-                  initial={{ scaleX:0 }} animate={{ scaleX:1 }}
-                  transition={{ duration:4.5, ease:'linear' }}
-                  style={{ height:2.5, width:46, background:'#ff4040', borderRadius:3, marginTop:8, transformOrigin:'left', boxShadow: '0 0 8px rgba(255,64,64,0.5)' }}
-                />
-              )}
-            </div>
-          ))}
+        <div style={{ display:'flex', justifyContent:'center', padding:'36px 0 0', zIndex: 10, width: '100%' }}>
+          <Dock
+            items={TABS.map((tab, i) => ({
+              icon: <tab.Icon />,
+              label: tab.label,
+              onClick: () => goTo(i),
+              isActive: active === i
+            }))}
+            panelHeight={60}
+            baseItemSize={46}
+            magnification={65}
+            distance={100}
+          />
         </div>
       </motion.div>
 
