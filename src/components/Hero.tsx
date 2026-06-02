@@ -56,8 +56,14 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="page_heroBackground__MQqbj" style={{ maxWidth: 'none', width: '100vw', background: '#000000' }}>
-        <div style={{ position: 'absolute', inset: 0, background: '#000' }}>
+      <div className="page_heroBackground__MQqbj" style={{ maxWidth: 'none', width: '100vw' }}>
+        <div style={{ 
+          position: 'absolute', 
+          inset: 0, 
+          background: '#0a0a0a',
+          WebkitMaskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%)',
+          maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%)'
+        }}>
           <LightPillar
             topColor="#ff3333"
             bottomColor="#660000"
