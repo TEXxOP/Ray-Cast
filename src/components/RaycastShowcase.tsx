@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ClipboardContent, AIContent, EmojiContent, CalculatorContent, WindowContent } from './ShowcaseContents';
 import Dock from './Dock';
+import Galaxy from './Galaxy';
 
 // ── SVG Tab Icons ────────────────────────────────
 const ClipSVG  = () => <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="2" width="6" height="4" rx="1"/><rect x="3" y="6" width="18" height="16" rx="2"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="16" x2="13" y2="16"/></svg>;
@@ -83,14 +84,38 @@ export default function RaycastShowcase() {
       padding: '100px 24px',
       position: 'relative',
     }}>
-      {/* ── Outer background glow ── */}
+      {/* ── Outer background glow and stars ── */}
       <div style={{
         position: 'absolute',
         inset: 0,
-        background: 'radial-gradient(ellipse 70% 50% at 50% 30%, rgba(255,150,150,0.04) 0%, transparent 70%)',
+        background: '#0a0a0a',
         pointerEvents: 'none',
         zIndex: 0,
-      }} />
+        overflow: 'hidden',
+      }}>
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          background: 'radial-gradient(ellipse 70% 50% at 50% 30%, rgba(255,150,150,0.04) 0%, transparent 70%)',
+          zIndex: 1,
+        }} />
+        <div style={{ position: 'absolute', inset: 0, opacity: 0.8 }}>
+          <Galaxy 
+            mouseRepulsion={false}
+            mouseInteraction={false}
+            density={0.5}
+            glowIntensity={0.2}
+            saturation={0}
+            hueShift={140}
+            twinkleIntensity={0.4}
+            rotationSpeed={0.03}
+            repulsionStrength={2}
+            autoCenterRepulsion={0}
+            starSpeed={0.5}
+            speed={0.5}
+          />
+        </div>
+      </div>
 
       {/* ── MacBook Frame ── */}
       <motion.div
