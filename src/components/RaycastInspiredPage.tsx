@@ -22,28 +22,49 @@ export default function RaycastInspiredPage() {
         <Hero />
         <RaycastShowcase />
         <div dangerouslySetInnerHTML={{ __html: `<div class="page_sectionContainer__86OJv"><!--\$--><!--\$!--><template data-dgst="BAILOUT_TO_CLIENT_SIDE_RENDERING"></template><!--/\$--><!--/\$--></div><div class="GetYourTimeBack_container__J6oE_"><div class="GetYourTimeBack_getYourTimeBack__YPQys"><div class="GetYourTimeBack_text__pIgS0"><div class="SectionTitle_container__qvIRZ"><h2>It’s not about saving time.</h2><p>It’s about feeling like you’re never wasting it.</p></div><a class="Button_button__JJiqJ Button_light__KdYEB GetYourTimeBack_downloadButton__aaxb1" aria-disabled="false"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16"><path fill="currentColor" d="M12.665 15.358c-.905.844-1.893.711-2.843.311-1.006-.409-1.93-.427-2.991 0-1.33.551-2.03.391-2.825-.31C-.498 10.886.166 4.078 5.28 3.83c1.246.062 2.114.657 2.843.71 1.09-.213 2.133-.826 3.296-.746 1.393.107 2.446.64 3.138 1.6-2.88 1.662-2.197 5.315.443 6.337-.526 1.333-1.21 2.657-2.345 3.635zM8.03 3.778C7.892 1.794 9.563.16 11.483 0c.268 2.293-2.16 4-3.452 3.777"></path></svg>Download</a></div><style>
-    .GetYourTimeBack_keyboard__2X_j_ {
-      perspective: 1200px !important;
+    .GetYourTimeBack_getYourTimeBack__YPQys {
+      position: relative !important;
       overflow: visible !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: flex-start !important;
+      min-height: 500px !important;
+    }
+    .GetYourTimeBack_text__pIgS0 {
+      position: relative;
+      z-index: 10;
+      flex-shrink: 0;
+    }
+    .GetYourTimeBack_keyboard__2X_j_ {
+      perspective: 1800px !important;
+      position: absolute !important;
+      left: 300px !important;
+      top: -150px !important;
+      width: 1200px !important;
+      overflow: visible !important;
+      z-index: 0;
+      pointer-events: none;
     }
     .my-3d-keyboard {
-      transform: rotateX(55deg) rotateZ(-25deg) rotateY(10deg) scale(0.7) translate(-10%, -10%);
+      transform: rotateX(60deg) rotateZ(-30deg) rotateY(10deg) scale(1.3);
       transform-style: preserve-3d;
-      box-shadow: 20px 40px 100px rgba(0,0,0,0.8);
       border-radius: 20px;
-      background: #111;
-      transition: transform 0.3s ease;
-      transform-origin: center;
+      transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+      transform-origin: left center;
+    }
+    /* Hover isn't possible if pointer-events is none on parent, but let's re-enable it on keyboard itself just in case */
+    .my-3d-keyboard {
+      pointer-events: auto;
     }
     .my-3d-keyboard:hover {
-      transform: rotateX(50deg) rotateZ(-20deg) rotateY(5deg) scale(0.75) translate(-5%, -5%);
+      transform: rotateX(55deg) rotateZ(-25deg) rotateY(5deg) scale(1.35);
     }
     /* Highlight command keys and spacebar */
     .glow-key {
       opacity: 1 !important;
-      border: 1px solid rgba(255, 80, 80, 0.5) !important;
-      box-shadow: 0 0 30px rgba(255, 50, 50, 0.4), inset 0 0 10px rgba(255, 50, 50, 0.2) !important;
-      background: linear-gradient(180deg, rgba(255,50,50,0.1) 0%, rgba(20,20,20,1) 100%) !important;
+      border: 1px solid rgba(255, 80, 80, 0.4) !important;
+      box-shadow: 0 0 50px rgba(255, 50, 50, 0.3), inset 0 0 15px rgba(255, 50, 50, 0.1) !important;
+      background: linear-gradient(180deg, rgba(255,50,50,0.15) 0%, rgba(20,20,20,1) 100%) !important;
     }
     .glow-key .Keyboard_primary__gV0ic, .glow-key .Keyboard_alt__YrkyB svg path {
       color: #ff5555 !important;
