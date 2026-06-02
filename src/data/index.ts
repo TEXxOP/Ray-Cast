@@ -1,66 +1,161 @@
-import type { Extension, Testimonial, AutoCard, DevFeature } from '@/types';
-
-export const EXTENSIONS: Extension[] = [
-  { icon: '🟣', name: 'Linear', desc: 'Create, search and modify your issues without leaving your keyboard.', cat: 'engineering' },
-  { icon: '🌐', name: 'Google Translate', desc: 'Effortlessly translate into multiple languages from anywhere.', cat: 'writing' },
-  { icon: '🎵', name: 'Spotify', desc: 'Search for music and podcasts, browse your library, and control playback.', cat: 'productivity' },
-  { icon: '🌀', name: 'Arc', desc: 'Navigate your open tabs or search through your browser history.', cat: 'productivity' },
-  { icon: '🗜', name: 'TinyPNG', desc: 'Compress the selected images in Finder with TinyPNG.', cat: 'design' },
-  { icon: '🔑', name: '1Password', desc: 'Easily grab any password or credential from your 1Password vaults.', cat: 'engineering' },
-  { icon: '📋', name: 'Jira', desc: 'Manage your JIRA issues and sprints without leaving your keyboard.', cat: 'engineering' },
-  { icon: '💬', name: 'Slack', desc: 'Set your presence, see unread messages and search your chats.', cat: 'productivity' },
-  { icon: '🎥', name: 'Zoom', desc: 'See your upcoming calls and jump straight into them from Raycast.', cat: 'productivity' },
-  { icon: '⏱', name: 'Timers', desc: 'Start stopwatches and timers to keep track of your daily tasks.', cat: 'productivity' },
-  { icon: '🍅', name: 'Pomodoro', desc: 'Control pomodoro timers and see the current interval in the menu bar.', cat: 'productivity' },
-  { icon: '📓', name: 'Notion', desc: 'The fastest way to search and create Notion pages.', cat: 'productivity' },
+// ── Navigation ──────────────────────────────────────────────────────────────
+export const NAV_LINKS = [
+  { label: 'Store', href: '/store' },
+  { label: 'Pro', href: '/pro' },
+  { label: 'AI', href: '/core-features/ai' },
+  { label: 'iOS', href: '/ios' },
+  { label: 'Windows', href: '/windows' },
+  { label: 'Teams', href: '/teams' },
+  { label: 'Developers', href: '/developers' },
+  { label: 'Blog', href: '/blog' },
+  { label: 'Pricing', href: '/pricing' },
 ];
 
-export const TESTIMONIALS: Testimonial[] = [
-  { name: 'Guillermo Rauch', handle: '@rauchg', role: 'CEO, Vercel', color: '#7C3AED', quote: 'Raycast is incrementally turning my Mac into an AI-native operating system and I\'m so here for it.' },
-  { name: 'Marques Brownlee', handle: '@MKBHD', role: 'Creator, MKBHD', color: '#DC2626', quote: 'The single best productivity app on Mac. Nothing comes close to Raycast for my workflow.' },
-  { name: 'Adam Wathan', handle: '@adamwathan', role: 'Creator, Tailwind CSS', color: '#0EA5E9', quote: 'I use Raycast dozens of times per day. It\'s replaced Spotlight, Alfred, and countless other tools.' },
-  { name: 'Wes Bos', handle: '@wesbos', role: 'Co-host, SyntaxFM', color: '#F59E0B', quote: 'The extensions ecosystem is incredible. If your app isn\'t on Raycast, it should be.' },
-  { name: 'Max Stoiber', handle: '@mxstbr', role: 'CEO, Stellate', color: '#10B981', quote: 'Raycast has completely transformed how I work. The speed and extensibility are unmatched.' },
-  { name: 'Koen Bok', handle: '@koenbok', role: 'Founder, Framer', color: '#8B5CF6', quote: 'What amazes me most about Raycast is how much faster my entire day flows because of it.' },
+// ── Testimonials ─────────────────────────────────────────────────────────────
+export const TESTIMONIALS = [
+  {
+    name: 'Guillermo Rauch',
+    handle: '@rauchg',
+    role: 'CEO, Vercel',
+    quote: "Raycast is the best investment I've made in my productivity toolkit. It's the kind of tool that makes you feel like you have superpowers.",
+    favoriteFeature: 'Snippets',
+    topExtension: 'Vercel',
+    color: '#1a1a2e',
+    avatarUrl: 'https://pbs.twimg.com/profile_images/1171518785/rauchg-2-square_400x400.jpg',
+  },
+  {
+    name: 'Marques Brownlee',
+    handle: '@MKBHD',
+    role: 'Creator, MKBHD',
+    quote: "I literally use Raycast every single day. It's replaced so many other apps for me — it's fast, it's powerful, and it just works.",
+    favoriteFeature: 'Clipboard History',
+    topExtension: 'YouTube',
+    color: '#1a0a2e',
+    avatarUrl: 'https://pbs.twimg.com/profile_images/1468938854824947714/Ef-KCBr6_400x400.jpg',
+  },
+  {
+    name: 'Koen Bok',
+    handle: '@koenbok',
+    role: 'Founder, Framer',
+    quote: "Raycast is turning my Mac into an AI-native operating system and I'm so here for it.",
+    favoriteFeature: 'AI Chat',
+    topExtension: 'Notion Search',
+    color: '#0a1a2e',
+    avatarUrl: 'https://pbs.twimg.com/profile_images/983475423620546561/AEbQJOEo_400x400.jpg',
+  },
+  {
+    name: 'Andreas Storm',
+    handle: '@avstorm',
+    role: 'Designer & Iconographer',
+    quote: "The thoughtfulness in Raycast's design is what got me hooked. Every detail has been considered. It's exactly how I'd build a launcher.",
+    favoriteFeature: 'Window Management',
+    topExtension: 'Color Picker',
+    color: '#1a2e0a',
+    avatarUrl: 'https://pbs.twimg.com/profile_images/1503001835019911170/zPvIHPj3_400x400.jpg',
+  },
+  {
+    name: 'Adam Whitcroft',
+    handle: '@AdamWhitcroft',
+    role: 'Designer, Owner',
+    quote: "Raycast has completely changed how I interact with my Mac. It's not just a launcher — it's a whole productivity platform.",
+    favoriteFeature: 'Quick AI',
+    topExtension: 'Tailwind CSS',
+    color: '#2e1a0a',
+    avatarUrl: 'https://pbs.twimg.com/profile_images/1600553892335747072/4hJfuMzg_400x400.jpg',
+  },
 ];
 
-export const AUTO_CARDS: AutoCard[] = [
-  { title: 'Snippets', desc: 'Tired of typing the same thing? Create a snippet and insert it by simply typing its keyword.', color: '#3B82F6' },
-  { title: 'Quicklinks', desc: 'Say goodbye to open tabs. Create quicklinks to launch anything from anywhere.', color: '#8B5CF6' },
-  { title: 'Hotkeys & Aliases', desc: 'Speed up your workflow by assigning hotkeys or aliases to common commands or apps.', color: '#EC4899' },
-  { title: 'Raycast Notes', desc: 'A quick way to capture a thought while working on something else. Always there when you need it.', color: '#F59E0B' },
+// ── Developer Features ────────────────────────────────────────────────────────
+export const DEV_FEATURES = [
+  {
+    title: 'React to macOS',
+    desc: 'Use the tools you already know — React and TypeScript — to build extensions that feel truly native.',
+    icon: '⚛️',
+  },
+  {
+    title: 'Built-in UI',
+    desc: 'Leverage the Raycast design system. Lists, forms, detail views — all ready to use.',
+    icon: '🎨',
+  },
+  {
+    title: 'Batteries included',
+    desc: 'Built-in utilities for storage, OAuth, AI, toast notifications, and a whole lot more.',
+    icon: '🔋',
+  },
+  {
+    title: 'Publish to the Store',
+    desc: 'Share your extension with 300,000+ Raycast users. Review, publish, and iterate with ease.',
+    icon: '🚀',
+  },
 ];
 
-export const DEV_FEATURES: DevFeature[] = [
-  { icon: '⚛️', title: 'React to macOS', desc: 'Build rich, native extensions with the technologies you already know: React, TypeScript and Node.' },
-  { icon: '🎨', title: 'Built-in UI', desc: 'Our UI component library lets you focus on logic while we handle the pixels.' },
-  { icon: '🔋', title: 'Batteries Included', desc: 'A strongly typed API, hot-reloading and modern tooling that make it a blast to work with.' },
-  { icon: '🚀', title: 'Publish to the Store', desc: 'Submit your extension to the Raycast Store and share it with thousands of users instantly.' },
+// ── Automation Cards ──────────────────────────────────────────────────────────
+export const AUTO_CARDS = [
+  {
+    title: 'Snippets',
+    desc: 'Type a keyword and watch it transform into full text — emails, code, or anything you repeat.',
+    color: 'linear-gradient(90deg, #5E6AD2, #8B5CF6)',
+    icon: '✂️',
+  },
+  {
+    title: 'Quicklinks',
+    desc: 'Create shortcuts to your most-visited websites, apps, and files. One keystroke away.',
+    color: 'linear-gradient(90deg, #06B6D4, #3B82F6)',
+    icon: '⚡',
+  },
+  {
+    title: 'Hotkeys & Aliases',
+    desc: 'Bind any command to a global hotkey. Your most-used flows, at your fingertips.',
+    color: 'linear-gradient(90deg, #F59E0B, #EF4444)',
+    icon: '⌨️',
+  },
 ];
 
+// ── Marquee Tags ──────────────────────────────────────────────────────────────
 export const MARQUEE_TAGS = [
-  'Notes', 'Flight Tracker', 'Calculator', 'File Search',
-  'Script Commands', 'Window Management', 'My Schedule', 'Reminders',
-  'Translator', 'Raycast Focus', 'Screenshot Search', 'Emoji Picker',
+  'Clipboard History', 'AI Chat', 'Window Management', 'Snippets',
+  'Quicklinks', 'File Search', 'Calculator', 'Emoji Picker',
+  'Calendar', 'Focus Mode', 'Color Picker', 'System Commands',
+  'Confetti', 'Notes', 'Reminders', 'Translation',
+  'Screenshot', 'Script Runner', 'Kill Process', 'Menu Bar',
 ];
 
-export const NAV_LINKS = ['Store', 'Pro', 'AI', 'iOS', 'Windows', 'Teams', 'Developers', 'Blog', 'Pricing'];
-
+// ── Footer Columns ────────────────────────────────────────────────────────────
 export const FOOTER_COLS = [
   {
     title: 'Product',
-    links: ['Store', 'Pro', 'Teams', 'Pricing', 'Changelog', 'Browser Extension', 'iOS', 'Windows', 'Raycast 2.0', 'FAQ'],
+    links: ['Pro', 'Teams', 'Pricing', 'Changelog', 'Browser Extension', 'Developers', 'iOS', 'Windows', 'Raycast 2.0', 'API Docs', 'Manual', 'FAQ'],
   },
   {
-    title: 'Core Features',
-    links: ['Raycast AI', 'Raycast Notes', 'Raycast Focus', 'Clipboard History', 'Window Management', 'Snippets', 'File Search', 'Quicklinks', 'Calculator', 'Emoji Picker'],
+    title: 'Features',
+    links: ['Raycast Notes', 'Raycast Focus', 'Clipboard History', 'Window Management', 'Snippets', 'File Search', 'Quicklinks', 'Calculator', 'Calendar', 'Emoji Picker'],
+  },
+  {
+    title: 'Extensions',
+    links: ['Developer Tools', 'Pomodoro Timer', 'Productivity', 'Project Management', 'Translation', 'AI'],
   },
   {
     title: 'Company',
-    links: ['Manifesto', 'Customers', 'Careers', 'Terms of Service', 'Privacy Policy', 'Trust Center', 'Press Kit', 'Contact'],
+    links: ['Customers', 'Careers', 'Terms of Service', 'Privacy Policy', 'DPA', 'Trust Center', 'Press Kit', 'Contact'],
   },
   {
     title: 'Community',
-    links: ['Community Stories', 'Ambassadors', 'Slack', 'X/Twitter', 'GitHub', 'Dribbble'],
+    links: ['Ambassadors', 'Slack', 'X / Twitter', 'GitHub', 'Dribbble'],
   },
+];
+
+// ── What Else items ────────────────────────────────────────────────────────────
+export const WHAT_ELSE_ITEMS = [
+  { label: 'It can take notes.', emoji: '📝' },
+  { label: 'Track your flights.', emoji: '✈️' },
+  { label: 'Convert anything.', emoji: '🔄' },
+  { label: 'Search files.', emoji: '🔍' },
+  { label: 'Run scripts.', emoji: '⚡' },
+  { label: 'Manage your windows.', emoji: '🪟' },
+  { label: 'Plan your day.', emoji: '📅' },
+  { label: 'Remind you of stuff.', emoji: '🔔' },
+  { label: 'Translate into any language.', emoji: '🌍' },
+  { label: 'Block distractions.', emoji: '🎯' },
+  { label: 'Find text in screenshots.', emoji: '🖼️' },
+  { label: 'Insert Emojis.', emoji: '😄' },
 ];
