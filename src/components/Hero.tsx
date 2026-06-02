@@ -56,7 +56,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="page_heroBackground__MQqbj">
+      <div className="page_heroBackground__MQqbj" style={{ maxWidth: 'none' }}>
         <Galaxy 
           mouseRepulsion
           mouseInteraction
