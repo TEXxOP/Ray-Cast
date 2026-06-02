@@ -140,7 +140,6 @@ export default function RaycastInspiredPage() {
     .ExtensionHighlight_category__aMfDp {
       transition: color 0.3s ease;
       z-index: 1;
-      padding: 6px 16px; /* Ensure there is space for the backdrop */
     }
     .ExtensionHighlight_category__aMfDp:hover:not(.ExtensionHighlight_active__N2OuW) {
       color: rgba(255,255,255,0.9) !important;
