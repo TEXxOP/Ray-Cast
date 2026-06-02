@@ -24,7 +24,7 @@ interface GradientBlindsProps {
   className?: string;
   dpr?: number;
   paused?: boolean;
-  gradientColors: string[];
+  gradientColors?: string[];
   angle?: number;
   noise?: number;
   blindCount?: number;
@@ -43,7 +43,7 @@ const GradientBlinds = ({
   className = '',
   dpr,
   paused = false,
-  gradientColors,
+  gradientColors = ['#FF9FFC', '#5227FF'],
   angle = 0,
   noise = 0.3,
   blindCount = 16,
@@ -274,7 +274,7 @@ void main() {
     const ro = new ResizeObserver(resize);
     ro.observe(container);
 
-    const onPointerMove = (e: any) => {
+    const onPointerMove = (e: PointerEvent) => {
       const rect = canvas.getBoundingClientRect();
       const scale = renderer.dpr || 1;
       const x = (e.clientX - rect.left) * scale;
@@ -284,7 +284,7 @@ void main() {
         uniforms.iMouse.value = [x, y];
       }
     };
-    window.addEventListener('pointermove', onPointerMove);
+    canvas.addEventListener('pointermove', onPointerMove);
 
     const loop = (t: number) => {
       rafRef.current = requestAnimationFrame(loop);
@@ -315,7 +315,7 @@ void main() {
 
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
-      window.removeEventListener('pointermove', onPointerMove);
+      canvas.removeEventListener('pointermove', onPointerMove);
       ro.disconnect();
       if (canvas.parentElement === container) {
         container.removeChild(canvas);
